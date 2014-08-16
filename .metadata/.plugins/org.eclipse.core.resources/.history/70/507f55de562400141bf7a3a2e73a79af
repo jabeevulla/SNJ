@@ -1,0 +1,62 @@
+package com.snj.websales.main;
+
+import org.apache.cordova.DroidGap;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.Menu;
+import android.view.MenuItem;
+
+public class MainActivity extends DroidGap {
+
+	public enum AppStart {
+		FIRST_TIME, FIRST_TIME_VERSION, NORMAL;
+	}
+
+	private Context context;
+	private SharedPreferences sharedPreferences;
+
+	/**
+	 * The app version code (not the version name!) that was used on the last
+	 * start of the app.
+	 */
+	private static final String LAST_APP_VERSION = "last_app_version";
+	
+	/**
+	 * Caches the result of {@link #checkAppStart()}. To allow idempotent method
+	 * calls.
+	 */
+	private static AppStart appStart = null;
+	
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		
+		boolean previouslyStarted = prefs.getBoolean(getString(R.string.pr), defValue)
+		super.loadUrl("file:///android_asset/www/index.html");
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// Handle action bar item clicks here. The action bar will
+		// automatically handle clicks on the Home/Up button, so long
+		// as you specify a parent activity in AndroidManifest.xml.
+		int id = item.getItemId();
+		if (id == R.id.action_settings) {
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+}

@@ -1,0 +1,5 @@
+INDEX VERSION 1.122+C:\PruBsn_MT\4_Jabee\Personal\Practice\bootstrapWS\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
+1500661723.index
+898653386.index
+282278457.index
+4117532329.index

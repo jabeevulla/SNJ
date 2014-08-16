@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
+
+
+<title>Cordova with Bootstrap</title>
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- MetisMenu CSS -->
+<link href="css/plugins/metisMenu/metisMenu.min.css" rel="stylesheet">
+
+<!-- Timeline CSS -->
+<link href="css/plugins/timeline.css" rel="stylesheet">
+
+<!-- Custom CSS -->
+<link href="css/sb-admin-2.css" rel="stylesheet">
+
+<!-- Morris Charts CSS -->
+<link href="css/plugins/morris.css" rel="stylesheet">
+
+<!-- Custom Fonts -->
+<link href="font-awesome-4.1.0/css/font-awesome.min.css"
+	rel="stylesheet" type="text/css">
+
+<script type="text/javascript" charset="utf-8" src="js/cordova.js"></script>
+<script type="text/javascript" charset="utf-8" src="SQLitePlugin.js"></script>
+<script type="text/javascript" charset="utf-8">
+
+alert("Loading Devide ..");
+	// Wait for PhoneGap to connect with the device
+	document.addEventListener("deviceready", onDeviceReady, false);
+	
+	// PhoneGap is ready to be used!
+	function onDeviceReady(){
+		
+		var db = window.sqlitePlugin.openDatabase("snjinscartDB", "1.0", "snjinscartDB", 1000000);
+		alert("Databse created with snjinscartDB : "+db);
+		
+		db.transaction(populateDB,errorDB);
+	}
+	
+	// Populate the database 
+    function populateDB(tx) {
+		alert("in populateDB");
+		
+		tx.executeSql('DROP TABLE IF EXISTS DEMO');
+        tx.executeSql('CREATE TABLE IF NOT EXISTS DEMO (id unique, data)');
+        tx.executeSql('INSERT INTO DEMO (id, data) VALUES (1, "First row")');
+        tx.executeSql('INSERT INTO DEMO (id, data) VALUES (2, "Second row")');
+		
+/*     	tx.executeSql("SELECT * FROM halal_product", [], querySuccess, errorDB); */
+    }
+
+    // Transaction error callback
+    function errorDB(tx, err) {
+        alert("Error processing SQL: "+err);
+    }
+
+    // Transaction success callback
+    function querySuccess(tx, results) {
+        alert("success!" + results.rows.length + "DB job done. Enjoy your app......");
+        
+        navigator.app.loadurl("file:///android_asset/www/index.html");
+        
+    }
+
+</script>
+</head>
+<body>
+	Loading.........
+</body>
+</html>
